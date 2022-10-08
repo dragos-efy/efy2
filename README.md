@@ -1,4 +1,4 @@
-# EFY UI
+# EFY UI (Temporary Clone, will be deleted soon)
 Customisable, convergent, transparent, modular, futuristic css / js framework that can be added to your own web / local apps & websites
 
 ![image](https://user-images.githubusercontent.com/86549690/192852125-ba861a18-a85c-4dd3-8594-7cd758888ec7.png)
