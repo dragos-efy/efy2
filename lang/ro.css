@@ -34,12 +34,13 @@
 --colors:Culori;
 --images:Imagini;
 --size:Mărime;
+--menu: Meniu;
 --max_width:Mărime Maximă;
 --transparency:Transparență;
 --efy_settings:Setari EFY;
 --efy_images:Imagini EFY;
 --save:Salvează;
---menu_button_position:Poziția Butonului de Meniu;
+--button_position:Poziția Butonului;
 --floating_button:Buton Plutitor;
 --outline:Linie;
 --focus_outline:Linie focus;
@@ -55,6 +56,8 @@
 --learn_more:Află mai multe;
 --matrix:Chat Matrix;
 --github:Github;
+--left:Stânga;
+--right:Dreapta;
 --custom_colors:Culori Personalizate;
 --virtual_keyboard:Tastatură Virtuală;
 --click_tap:Click & Atingere;
@@ -89,4 +92,6 @@
 --offline_notify_text:Verifică-ți conexiunea la internet?;
 --online_notify:Ești înapoi ONLINE;
 --online_notify_text:Reîncarcă pagina dacă e nevoie;
+--localstorage_off: Your browser blocks LocalStorage;
+--localstorage_off_text: You cannot save your preferences and some features will not work until you turn it on. No worries, your efy data stays in this local device only.;
 }

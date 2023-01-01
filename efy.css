@@ -1,4 +1,4 @@
-/*EFY 2022.12.15*/ :root { --efy_font_size: 1px;
+/*EFY 23.01.01*/ :root { --efy_font_size: 1px;
 --efy_radius0: calc(var(--efy_radius) / 1.25); --efy_radius2: calc(var(--efy_radius) * 1.5); --efy_radius00: calc(var(--efy_radius) / 3);
 --efy_padding:  8rem  12rem; --efy_padding2: 3rem  6rem; --efy_gap0:  calc(var(--efy_gap) / 1.5);
 --efy_color: linear-gradient(var(--efy_color_angle), rgb(var(--efy_color1_var)), rgb(var(--efy_color2_var)));
@@ -31,7 +31,7 @@
 /*Content: ''*/ [type=radio]:checked:after, [type=checkbox]:checked:after, [efy_select] label:before, [efy_select] [type=radio]:checked + label:after, [efy_select] [type=checkbox]:checked + label:after {content: ''}
 /*Content: None*/ [efy_select] [for*=efy_color]:before, [efy_select] [for*=efy_color]:after {content: none}
 
-/*BG: Transparent*/ .efy_sidebar {background: transparent!important}
+/*BG: Transparent*/ [efy_mode*=trans] .efy_sidebar {background: transparent!important; backdrop-filter: blur(50rem); -webkit-backdrop-filter: blur(50rem)}
 /*BG*/ html:not([efy_mode*=trans]):before, html:not([efy_mode*=trans]):after {background: var(--efy_bg)!important}
 /*BG1*/ aside, th, [type=file], pre, textarea, select, input, details, blockquote, pre, article, tr:nth-child(even), [efy_alert], [efy_timer], [efy_clock] {background: var(--efy_bg1)}
 /*BG: text*/ mark, kbd {background: var(--efy_text)}
@@ -136,7 +136,8 @@ aside {width: 30%; padding: 0 15rem; margin-left:  var(--efy_gap); float: right}
 article {padding: 15rem}
 section {border-top:  var(--efy_border); border-bottom:  var(--efy_border); padding: 30rem  15rem; margin:  calc(var(--efy_gap) * 3) 0}
 
-details {margin-bottom:  var(--efy_gap)} details > details {padding: 0.6rem  15rem 0  15rem}
+ [efy_content=menu] {padding: 0 var(--efy_gap)!important}
+details {margin-bottom:  var(--efy_gap)} :is(details, [efy_content=menu]) > details {padding: 0.6rem  15rem 0  15rem}
 details[open] {padding: 0.6rem  15rem 15rem  15rem}
 details[open] summary + * {margin-top: 0}
 details[open] summary {margin: 8rem 0; padding: 0}
@@ -264,7 +265,14 @@ details[open]:not([efy_help]) > summary:before {transform: rotate(90deg); right:
 [efy_range_text] input {margin: 6rem 0 0 0}
 :is([efy_range_text*=alpha], [efy_range_text*=beta]) :is(input, [efy_number]) {margin-top: 5rem}
 
-/*Sidebar*/ .efy_sidebar{padding:  var(--efy_gap) calc(var(--efy_gap) - 2rem) var(--efy_gap) var(--efy_gap); width: 100vw; max-width: 450rem; height: 100vh; z-index: 9999; position: fixed; right: -450rem; top: 0; box-shadow: 0 0 30rem #0005; border-radius: var(--efy_radius2) 0 0 var(--efy_radius2); transition: right calc(var(--efy_anim_status) * var(--efy_anim_speed) * 0.3s); overflow-y: auto; backdrop-filter: blur( 48rem); -webkit-backdrop-filter: blur( 48rem)}
+/*Sidebar*/ .efy_sidebar{background: var(--efy_bg); padding:  var(--efy_gap) calc(var(--efy_gap) - 2rem) var(--efy_gap) var(--efy_gap); width: 100vw; max-width: 450rem; height: 100vh; z-index: 9999; position: fixed; right: -450rem; top: 0; box-shadow: 0 0 30rem #0005; border-radius: var(--efy_radius2) 0 0 var(--efy_radius2); transition-property: left, right; transition-duration: calc(var(--efy_anim_status) * var(--efy_anim_speed) * 0.3s); overflow-y: auto}
+
+[efy_sidebar*=on] body {width: calc(100vw - 450rem); margin-right: 450rem; margin-left: 0; --efy_body_width: 100%}
+[efy_sidebar*=on]:not([efy_sidebar*=left]) body::-webkit-scrollbar {width: 0}
+[efy_sidebar*=on] .efy_sidebar {right: 0}
+[efy_sidebar*=left] .efy_sidebar {right: unset; left: -450rem; border-radius: 0 var(--efy_radius2) var(--efy_radius2) 0}
+[efy_sidebar*=on_left] body {margin-left: 450rem; margin-right: 0}
+[efy_sidebar*=on_left] .efy_sidebar {left: 0}
 
 [efy_sidebar_btn*=close] {margin: 0 0 15rem 0; height: fit-content}
 [efy_sidebar_btn*=absolute] {z-index: 9999; font-size: 20rem; padding: 4rem 10rem; position: fixed; text-align: center; top:  15rem; right:  15rem}
@@ -272,7 +280,7 @@ details[open]:not([efy_help]) > summary:before {transform: rotate(90deg); right:
 
 .efy_flex {display: flex; gap: var(--efy_gap); flex-wrap: wrap}
 
-[efy_about], #efy_sidebar [efy_card] {margin-bottom: var(--efy_gap)}
+[efy_about], .efy_sidebar [efy_card] {margin-bottom: var(--efy_gap)}
 .efy_about {padding: 0 10rem}
 [efy_about] {display: flex; gap: var(--efy_gap); flex-wrap: wrap; justify-content: space-between; align-items: center}
 [efy_about] button {margin: 0; display: flex; align-items: center; gap: 8rem}
@@ -280,10 +288,6 @@ details[open]:not([efy_help]) > summary:before {transform: rotate(90deg); right:
 [efy_about] button:not([efy_sidebar_btn*=close]) i {-webkit-text-fill-color: var(--efy_text)}
 [efy_logo] p {font-size: 24rem; padding-top: 2.5rem; display: inline-block; -webkit-text-fill-color: var(--efy_text)}
 [efy_logo] i {font-size: 16rem; margin: 0 -2rem 0 0; display: inline-block}
-
-/*efy_sidebar: Body*/ .efy_toggle_efy_sidebar {width: calc(100vw - 450rem); margin-right: 450rem; --efy_body_width: 100%}
-.efy_toggle_efy_sidebar::-webkit-scrollbar {width: 0}
-/*efy_sidebar: Menu*/ .efy_toggle_efy_sidebar_panel {right: 0}
 
 /*Button Align*/ #efy_btn_align div {display: grid; gap: var(--efy_gap); grid-template-columns: 1fr 1fr 1fr; width: fit-content; margin-bottom: var(--efy_gap)}
 #efy_btn_align div input {display: block; position: relative; opacity: 1; margin: 0} #efy_btn_align #middle_middle {opacity: 0!important; pointer-events: none}
@@ -331,7 +335,7 @@ details[open]:not([efy_help]) > summary:before {transform: rotate(90deg); right:
 .efy_quick_buttons, .efy_about_div .efy_flex {gap: var(--efy_gap0)}
 .efy_quick_buttons button {margin: 0 0 var(--efy_gap0) 0}
  .efy_about_div .efy_flex a {margin-bottom: 0}
- #efy_sidebar [efy_search_input] {margin: 0 0 var(--efy_gap) 0}
+ .efy_sidebar [efy_search_input] {margin: 0 0 var(--efy_gap) 0}
 
  /*Custom Sidebar Menu*/
 #custom_sidebar_menu, #demo_sidebar_settings > div {display: flex; flex-wrap: wrap; gap: var(--efy_gap); margin-bottom: var(--efy_gap)}
