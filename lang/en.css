@@ -34,12 +34,13 @@
 --colors:Colors;
 --images:Images;
 --size:Size;
+--menu:Menu;
 --max_width:Max Width;
 --transparency:Transparency;
 --efy_settings:EFY Settings;
 --efy_images:EFY Images;
 --save:Save;
---menu_button_position:Menu Button Position;
+--button_position:Button Position;
 --floating_button:Floating Button;
 --outline:Outline;
 --focus_outline:Focus Outline;
@@ -55,6 +56,8 @@
 --learn_more:Learn more;
 --matrix:Matrix chat;
 --github:Github;
+--left:Left;
+--right:Right;
 --custom_colors:Custom Colors;
 --virtual_keyboard:Virtual Keyboard;
 --click_tap:Click & Tap;
@@ -89,4 +92,6 @@
 --offline_notify_text:Maybe check your internet connection?;
 --online_notify:You are back ONLINE;
 --online_notify_text:Reload the page if needed;
+--localstorage_off: Your browser blocks LocalStorage;
+--localstorage_off_text: You cannot save your preferences and some features will not work until you turn it on. No worries, your efy data stays in this local device only.;
 }

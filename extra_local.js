@@ -38,7 +38,7 @@ for (let e = ['snow', 'leaf', 'flower', 'bubble'], ax = ['❅ ❅ ❆ ❄ ❅ �
 
 
 /*Audio*/ let b = 'forest rain waves underwater people fireworks dreamy'.split(' '); b.forEach(x => { efy_audio[x] = new Audio(`${efy_audio.folder}/${x}.webm`) });
-if (localStorage.efy_audio_status == 'on' ){ for (let i = 0; i < b.length; i++){
+if (efy.audio_status == 'on' ){ for (let i = 0; i < b.length; i++){
   $(`#efy_nature_audio_${b[i]}`).addEventListener('click', (x)=>{ if (x.target.checked == true){ $audio_play(efy_audio[b[i]]); efy_audio[b[i]].loop = true; }
   else {efy_audio[b[i]].pause(); efy_audio[b[i]].currentTime = 0;} })}}
 
@@ -88,10 +88,6 @@ $('#efy_keyboard_status').addEventListener('click', ()=>{
 
 
 
-/*Wait*/ $wait(1, ()=>{
-  /*Alpha*/ for (let a =['nature', 'keyboard'], i=0; i<a.length; i++){
-    $insert($(`#efy_${a[i]} > summary`), 'beforeend', $add('mark', {efy_lang: 'alpha'}))
-  }
-});
+/*Wait*/ $wait(1, ()=>{ /*Alpha*/ for (let a =['nature', 'keyboard'], i=0; i<a.length; i++){ $insert($(`#efy_${a[i]} > summary`), 'beforeend', $add('mark', {efy_lang: 'alpha'}))}});
 
 })();
