@@ -7,6 +7,9 @@
 --accessibility:Accesibilitate;
 --audio_effects:Efecte Audio;
 --nature_effects:Efecte Natură;
+--3d_layers:Straturi 3D;
+--back:Spate;
+--front:Față;
 --default:Presetat;
 --light:Luminat;
 --sepia:Sepia;
@@ -45,7 +48,7 @@
 --outline:Linie;
 --focus_outline:Linie focus;
 --animations:Animații;
---on_off:Pornit / Oprit;
+--active:Activează;
 --speed:Viteză;
 --text_size:Mărime Text;
 --zoom:Mărește;

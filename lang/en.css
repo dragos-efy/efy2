@@ -7,6 +7,9 @@
 --accessibility:Accessibility;
 --audio_effects:Audio Effects;
 --nature_effects:Nature Effects;
+--3d_layers:3D Layers;
+--back:Back;
+--front: Front;
 --default:Default;
 --light:Light;
 --sepia:Sepia;
@@ -45,7 +48,7 @@
 --outline:Outline;
 --focus_outline:Focus Outline;
 --animations:Animations;
---on_off:On / Off;
+--active:Active;
 --speed:Speed;
 --text_size:Text Size;
 --zoom:Zoom;
