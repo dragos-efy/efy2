@@ -1,4 +1,4 @@
-export let efy_version = '23.01.01 Beta', $ = document.querySelector.bind(document), $all = document.querySelectorAll.bind(document), $create = document.createElement.bind(document), $head, $body, $root, $efy_module, efy = {}, efy_lang = {}, efy_audio = {volume: 1}, $save =()=>{},
+export let efy_version = '23.01.05 Beta', $ = document.querySelector.bind(document), $all = document.querySelectorAll.bind(document), $create = document.createElement.bind(document), $head, $body, $root, $efy_module, efy = {}, efy_lang = {}, efy_audio = {volume: 1}, $save =()=>{},
 /*Append: Where, Element*/ $append = (a,b) =>{ a.appendChild(b)},
 /*Insert: Where, Position, Element*/ $insert = (a,b,c) =>{ a.insertAdjacentElement(b,c)}, $insert_text = (a,b,c) =>{ a.insertAdjacentText(b,c)},
 /*Get CSS Property*/ $css_prop = (a) =>{ return getComputedStyle($(':root')).getPropertyValue(a).replaceAll(' ','')},
@@ -201,10 +201,10 @@ for (let a = ['localstorage', 'idb'], b = ['settings', 'images'], c = '#efy_back
 
 /*Accessibility*/ if ($efy_module('efy_accessibility')){ $append($('.efy_sidebar'), $add('details', {id: 'efy_accessibility', efy_select: ''}, [$add('summary', {efy_lang: 'accessibility'}, [ $add('i', {efy_icon: 'accessibility'})]),
   $add('details', {id: 'efy_accessibility_outline', efy_select: ''}, [$add('summary', {efy_lang: 'outline'}), $add('p', {efy_lang: 'sidebar_outline_text'}), $add('input', {id: 'efy_outline', type: 'checkbox', name: 'efy_accessibility'}), $add('label', {for: 'efy_outline', efy_lang: 'focus_outline'})]),
-  $add('details', {id: 'efy_accessibility_animations', efy_select: ''}, [$add('summary', {efy_lang: 'animations'}), $add('input', {id: 'efy_anim_status', type: 'checkbox', name: 'efy_anim_status'}), $add('label', {for: 'efy_anim_status', efy_lang: 'on_off'}),
-       $add('div', {efy_lang: 'speed', efy_range_text: 'Speed'}, [ $add('input', {class: 'efy_anim_speed', type: 'range', min: '0', max: '20', value: '1', step: '0.1'})]), $add('button', {type: 'reset', efy_lang: 'reset'}, [$add('i', {efy_icon: 'reload'})])
+  $add('details', {id: 'efy_accessibility_animations', efy_select: ''}, [$add('summary', {efy_lang: 'animations'}),
+       $add('div', {efy_lang: 'speed', efy_range_text: 'Speed'}, [ $add('input', {class: 'efy_anim_speed', type: 'range', min: '0', max: '20', value: '1', step: '0.1'})])
   ]),
-  $add('details', {id: 'efy_accessibility_text', efy_select: ''}, [$add('summary', {efy_lang: 'text_size'}, [$add('mark', {}, ['Beta'])]), $add('form', {class: 'efy_text_accessibility'}, [
+  $add('details', {id: 'efy_accessibility_text', efy_select: ''}, [$add('summary', {efy_lang: 'text_size'}), $add('form', {class: 'efy_text_accessibility'}, [
     $add('div', {efy_lang: 'zoom', efy_range_text: 'Zoom'}, [ $add('input', {class: 'efy_ui_zoom', type: 'range', min: '1', max: '2', value: '1', step: '0.01'})]),
     $add('div', {efy_lang: 'text_spacing', efy_range_text: 'Text Spacing'}, [ $add('input', {class: 'efy_text_spacing', type: 'range', min: '0', max: '15', value: '0', step: '1'})])
   ])]),
@@ -225,16 +225,20 @@ for (let a = ['efy_cursor_default', 'efy_cursor_custom', 'efy_cursor_none'], b =
 /*Default*/ $('#efy_cursor_default').addEventListener('change', ()=>{ if ($('#efy_cursor_default').checked) {$root.removeAttribute('efy_cursor_custom'); $root.removeAttribute('efy_cursor_none'); document.removeEventListener('pointermove', cursor_fn); delete efy.cursor; $save()}});
 
 
-/*Animations*/ (()=>{ let a = 'efy_anim_status', b = '--efy_anim_state'; if (efy.anim_status == 'off') {$body.style.setProperty('--'+a, '0'); $body.style.setProperty(b, 'paused')} else {$('#'+a).setAttribute('checked', '')}
-$('#'+a).onchange = () =>{ if (efy.anim_status == 'on') { efy.anim_status = 'off'; $save(); $body.style.setProperty('--'+a, '0'); $body.style.setProperty(b, 'paused')} else {efy.anim_status = 'on'; $save(); $body.style.setProperty('--'+a, '1'); $body.style.setProperty(b, 'running')}} })();
+/*Animations*/ (()=>{ let a = 'efy_anim_status', b = '--efy_anim_state', x = $('.efy_anim_speed'); $append($head, $add('style', {class: 'efy_anim_accessibility'}));
+    if (efy.anim_speed){ $text($('.efy_anim_accessibility'), `:root {--efy_anim_speed: ${efy.anim_speed}!important;}`); x.value = efy.anim_speed;
+        if (efy.anim_speed == '0') {$body.style.setProperty('--'+a, '0'); $body.style.setProperty(b, 'paused')}
+    }
+    x.addEventListener('change', ()=>{ efy.anim_speed = x.value; $save();
+        if (efy.anim_speed == '0'){ $body.style.setProperty('--'+a, '0'); $body.style.setProperty(b, 'paused')}
+        else {$body.style.setProperty('--'+a, '1'); $body.style.setProperty(b, 'running')}
+        $text($('.efy_anim_accessibility'), `:root {--efy_anim_speed: ${x.value}!important;}`)
+}) })();
 
 /* Text Size*/ $append($head, $add('style', {class: 'efy_text_accessibility'})); if (efy.text_zoom) { $text($('.efy_text_accessibility'), `:root {--efy_font_size: ${efy.text_zoom}px!important} html {letter-spacing: ${efy.text_spacing}px!important}`)
     $('.efy_ui_zoom').value = efy.text_zoom; $('.efy_text_spacing').value = efy.text_spacing;
 }
-
 $all('.efy_text_accessibility input').forEach(x => x.addEventListener('input', ()=>{ $text($('.efy_text_accessibility'), `:root {--efy_font_size: ${$('.efy_ui_zoom').value}px!important} html {letter-spacing: ${$('.efy_text_spacing').value}px!important}`); efy.text_zoom = $('.efy_ui_zoom').value; efy.text_spacing = $('.efy_text_spacing').value; $save() }));
-
-/* Animation Speed*/ $append($head, $add('style', {class: 'efy_anim_accessibility'})); $all('#efy_accessibility_animations input').forEach(x => x.oninput =()=>{ $text($('.efy_anim_accessibility'), `:root {--efy_anim_speed: ${x.value}!important;}`); efy.anim_speed = x.value; $save() });
 }
 
 /*Audio*/ if ($efy_module('efy_audio')){ $append($('.efy_sidebar'), $add('details', {efy_select: '', id: 'efy_audio'}, [
@@ -243,7 +247,7 @@ $all('.efy_text_accessibility input').forEach(x => x.addEventListener('input', (
     $add('div', {efy_lang: 'page_volume', efy_range_text: 'Page Volume'}, [ $add('input', {class: 'efy_audio_volume_page', type: 'range', min: '0', max: '1', value: '1', step: '0.01'}) ]),
     $add('p', {efy_lang: 'sidebar_audio_text'})
 ]));
-for (let a = ['status', 'click', 'hover'], b = ['on_off', 'click_tap', 'mouse_hover'], c = '#efy_audio > summary', d = 'beforebegin', i = 0; i < a.length; i++) {
+for (let a = ['status', 'click', 'hover'], b = ['active', 'click_tap', 'mouse_hover'], c = '#efy_audio > summary', d = 'beforebegin', i = 0; i < a.length; i++) {
     $insert($(c), d, $add('input', {type: 'checkbox', name: 'efy_audio', id:`efy_audio_${a[i]}`})); $insert($(c), d, $add('label', {for: `efy_audio_${a[i]}`, efy_lang: b[i]}))
 }
 /*Effects*/ efy_audio.folder = $css_prop('--efy_audio_folder'); ['pop','ok','ok2','ok3','ok4','hover','slide','squish','step','error','disabled'].forEach(x => { efy_audio[x] = new Audio(`${efy_audio.folder}/${x}.webm`); efy_audio[x].volume = efy_audio.volume }); $body.addEventListener("pointerdown", ()=>{ if (efy.audio_status == 'on' ){ if (efy.audio_click == 'on') {
@@ -400,8 +404,9 @@ $all(container +' '+ search).forEach(x =>{ if (x.textContent.toLowerCase().inclu
 /*Prevent Default*/ $all('input[type="range"], .plus-btn, .minus-btn').forEach(a => a.addEventListener('contextmenu', ()=> event.preventDefault()));
 
 $wait(1, ()=>{/*Translations*/ $ready('[efy_lang]', ()=>{ $efy_lang() });
-    /*Beta*/ for (let a =['accessibility', 'accessibility_animations', 'audio'], i=0; i<a.length; i++){ $insert($(`#efy_${a[i]} > summary`), 'beforeend', $add('mark', {efy_lang: 'beta'} ))}
-    /*Alpha*/ for (let a =['Gap', '"Max Width"'], i=0; i<a.length; i++){ $insert($(`[efy_content=size] [efy_range_text*=${a[i]}] p`), 'afterend', $add('mark', {efy_lang: 'alpha'} ))}
+    /*Beta*/ for (let a =['#efy_audio > summary'], i=0; i<a.length; i++){ $insert($(a[i]), 'beforeend', $add('mark', {efy_lang: 'beta'} ))}
+    $insert($('[efy_content=size] [efy_range_text*=Gap] > p'), 'afterend', $add('mark', {efy_lang: 'beta'} ));
+    /*Alpha*/ for (let a =['"Max Width"'], i=0; i<a.length; i++){ $insert($(`[efy_content=size] [efy_range_text*=${a[i]}] p`), 'afterend', $add('mark', {efy_lang: 'alpha'} ))}
     /*Version*/ $insert($('.efy_about_div'), 'afterbegin', $add('mark', {efy_lang: 'version'}, [`: ${efy_version}`]));
     /*Extra Modules*/ for (let a =['extra'], i=0; i<a.length; i++){
         if ($efy_module(`efy_${a[i]}`)){ $append($head, $add('link', {href: `${efy.folder}/${a[i]}.css`, rel: 'stylesheet'}));
