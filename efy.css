@@ -1,4 +1,4 @@
-/*EFY 23.01.01*/ :root { --efy_font_size: 1px;
+:root { --efy_font_size: 1px;
 --efy_radius0: calc(var(--efy_radius) / 1.25); --efy_radius2: calc(var(--efy_radius) * 1.5); --efy_radius00: calc(var(--efy_radius) / 3);
 --efy_padding:  8rem  12rem; --efy_padding2: 3rem  6rem; --efy_gap0:  calc(var(--efy_gap) / 1.5);
 --efy_color: linear-gradient(var(--efy_color_angle), rgb(var(--efy_color1_var)), rgb(var(--efy_color2_var)));
